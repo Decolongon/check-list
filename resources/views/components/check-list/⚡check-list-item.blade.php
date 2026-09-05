@@ -19,7 +19,11 @@ new class extends Component
     {{ $checkList->is_finished ? 'border-zinc-200 bg-zinc-50/70 dark:border-zinc-800 dark:bg-zinc-900/50' : ($isSelected ? 'border-zinc-900 bg-zinc-50 dark:border-white dark:bg-zinc-800 ring-1 ring-zinc-900 dark:ring-white' : 'border-zinc-200 dark:border-zinc-700 dark:bg-zinc-900') }}"
 >
     {{-- Drag handle for wire:sort --}}
-    <div wire:sort:item="{{ $checkList->id }}" class="flex shrink-0 cursor-grab items-center justify-center rounded p-1 text-zinc-300 hover:text-zinc-500 active:cursor-grabbing dark:text-zinc-500 dark:hover:text-zinc-300" title="{{ __('Drag to reorder') }}">
+    <div
+        wire:sort:item="{{ $checkList->id }}"
+        class="flex shrink-0 cursor-grab items-center justify-center rounded p-1 text-zinc-300 hover:text-zinc-500 active:cursor-grabbing dark:text-zinc-500 dark:hover:text-zinc-300"
+        title="{{ __('Drag to reorder') }}"
+    >
         <flux:icon.bars-3 class="size-4" />
     </div>
 

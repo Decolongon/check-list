@@ -13,6 +13,7 @@ class ChecklistService
     {
         $this->baseQuery($category)->increment('position');
     }
+
     private function baseQuery(Category $category)
     {
         return CheckList::query()->with('author:id,name')->where('category_id', $category->id);
@@ -62,11 +63,11 @@ class ChecklistService
         return $this->totalCount($category) > $this->getChecklists($category, $perPage)->count();
     }
 
-    public function toggleFinish(Category $category,int $id): void
+    public function toggleFinish(Category $category, int $id): void
     {
         $checkList = $this->baseQuery($category)->where('id', $id)->firstOrFail();
         abort_if($checkList->author_id !== Auth::id(), 403, 'You are not authorized to update this checklist.');
-        $checkList->update(['is_finished' => !$checkList->is_finished]);
+        $checkList->update(['is_finished' => ! $checkList->is_finished]);
     }
 
     public function delete(Category $category, int $id): void
@@ -93,7 +94,7 @@ class ChecklistService
             ->pluck('id')
             ->all();
 
-        if (!in_array($checklistId, $orderedIds, true)) {
+        if (! in_array($checklistId, $orderedIds, true)) {
             return;
         }
 

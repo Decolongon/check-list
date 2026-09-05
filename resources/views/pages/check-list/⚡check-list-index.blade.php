@@ -60,7 +60,7 @@ new class extends Component
     #[Computed]
     public function stats(): array
     {
-       return $this->checkListService->stats($this->category);
+        return $this->checkListService->stats($this->category);
     }
 
     public function toFinish(): void
@@ -153,7 +153,6 @@ new class extends Component
         unset($this->totalCount);
         unset($this->hasMore);
     }
-
 };
 ?>
 
@@ -273,7 +272,7 @@ new class extends Component
                 >
                     {{ __('Mark as finished') }}
                 </flux:button>
-            </livewire:check-list-bulk-action-bar>
+                </livewire:check-list-bulk-action-bar>
         @endif
 
         <div wire:sort="reorder" class="flex flex-col gap-2.5 sm:gap-3">
@@ -343,7 +342,7 @@ new class extends Component
                             aria-label="{{ __('Delete') }}"
                         />
                     </livewire:slot>
-                </livewire:check-list-item>
+                    </livewire:check-list-item>
             @empty
                 <flux:card class="flex flex-col items-center justify-center gap-3 border-dashed py-10 text-center sm:py-14">
                     <div class="flex size-12 items-center justify-center rounded-full bg-zinc-100 sm:size-14 dark:bg-zinc-800">
