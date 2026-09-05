@@ -23,16 +23,17 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
+    /* Theme based on app logo #4F46E5 (indigo) */
+    --color-accent: #4F46E5;
+    --color-accent-content: #4F46E5;
     --color-accent-foreground: var(--color-white);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
+        --color-accent: #6366F1;
+        --color-accent-content: #6366F1;
+        --color-accent-foreground: var(--color-white);
     }
 }
 
