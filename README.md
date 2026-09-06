@@ -17,27 +17,6 @@
 
 ---
 
-## Table of Contents
-
-- [About](#about)
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Tech Stack](#tech-stack)
-- [Requirements](#requirements)
-- [Quick Start — Clone & Setup](#quick-start--clone--setup)
-- [Setup Variants](#setup-variants)
-- [Available Scripts](#available-scripts)
-- [Project Structure](#project-structure)
-- [Environment Variables](#environment-variables)
-- [Database](#database)
-- [Routes & Pages](#routes--pages)
-- [Customization](#customization)
-- [Testing & Quality](#testing--quality)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
-
----
-
 ## About
 
 **Check List** is a category-based task manager. Each authenticated user creates **Categories** (e.g. Work, Personal, Shopping) and adds **Checklists** inside them. Items can be finished individually, bulk-finished, reordered via drag-and-drop, paginated with infinite scroll, and tracked with live stats (total / done / remaining / %).
