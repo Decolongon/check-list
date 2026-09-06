@@ -3,6 +3,7 @@
 use App\Models\Category;
 use App\Services\ChecklistService;
 use Illuminate\Support\Collection;
+use App\Concerns\HasUnset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
@@ -11,6 +12,8 @@ use Livewire\Component;
 
 new class extends Component
 {
+    use HasUnset;
+
     #[Locked]
     public Category $category;
 
@@ -30,8 +33,7 @@ new class extends Component
         }
 
         $this->perPage += 5;
-        unset($this->getCheckLists);
-        unset($this->hasMore);
+        $this->unsetAttributes(['getCheckLists','hasMore']);
     }
 
     public function boot(ChecklistService $checkListService)
@@ -66,12 +68,8 @@ new class extends Component
     public function toFinish(): void
     {
         $this->checkListService->markSelectedAsFinished($this->category, $this->selected);
-
         $this->clearSelection();
-        unset($this->getCheckLists);
-        unset($this->stats);
-        unset($this->totalCount);
-        unset($this->hasMore);
+        $this->unsetAttributes(['getCheckLists', 'stats', 'totalCount', 'hasMore']);
     }
 
     public function toggleSelectAll(): void
@@ -94,7 +92,7 @@ new class extends Component
     public function reorder(int|string $id, int $position): void
     {
         $this->checkListService->reorder($this->category, $id, $position);
-        unset($this->getCheckLists);
+        $this->unsetAttributes(['getCheckLists']);
     }
 
     public function submit(): void
@@ -121,26 +119,19 @@ new class extends Component
         ]);
 
         $this->reset('name');
-        unset($this->getCheckLists);
-        unset($this->stats);
-        unset($this->totalCount);
-        unset($this->hasMore);
+        $this->unsetAttributes(['getCheckLists', 'stats', 'totalCount', 'hasMore']);
     }
 
     public function toggle(int $id): void
     {
         $this->checkListService->toggleFinish($this->category, $id);
-        unset($this->getCheckLists);
-        unset($this->stats);
+        $this->unsetAttributes(['getCheckLists', 'stats']);
     }
 
     public function delete(int $id): void
     {
         $this->checkListService->delete($this->category, $id);
-        unset($this->getCheckLists);
-        unset($this->stats);
-        unset($this->totalCount);
-        unset($this->hasMore);
+        $this->unsetAttributes(['getCheckLists', 'stats', 'totalCount', 'hasMore']);
     }
 
     public function clear(): void
@@ -148,10 +139,7 @@ new class extends Component
         $this->checkListService->clearAll($this->category);
         $this->reset('selected');
         $this->perPage = 5;
-        unset($this->getCheckLists);
-        unset($this->stats);
-        unset($this->totalCount);
-        unset($this->hasMore);
+        $this->unsetAttributes(['getCheckLists', 'stats', 'totalCount', 'hasMore']);
     }
 };
 ?>
