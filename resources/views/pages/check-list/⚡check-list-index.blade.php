@@ -114,7 +114,7 @@ new class extends Component
 
         Auth::user()->checklists()->create([
             'category_id' => $this->category->id,
-            'name' => $this->name,
+            'name' => str()->squish($this->name),
             'position' => 0,
         ]);
 
