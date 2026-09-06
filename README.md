@@ -206,16 +206,6 @@ npm run dev                # Vite HMR
 
 Open **http://localhost:8000** → Register → Create a Category → Open it → Add checklists.
 
-### 7. Verify
-
-```bash
-php artisan test           # runs Pint check + PHPStan + Pest
-# or individually:
-php artisan test --compact
-vendor/bin/pint --test
-vendor/bin/phpstan analyse
-```
-
 ---
 
 ## Setup Variants
@@ -266,56 +256,6 @@ php artisan sail:install   # choose mysql
 
 ---
 
-## Available Scripts
-
-| Command | What it does |
-|---|---|
-| `composer setup` | `composer install` + `.env` copy + `key:generate` + `migrate` + `npm install` + `npm run build` |
-| `composer dev` | Runs `php artisan dev` (server + queue + pail + Vite via concurrently) |
-| `composer lint` | `pint --parallel` (fix) |
-| `composer lint:check` | `pint --parallel --test` |
-| `composer types:check` | `phpstan analyse` |
-| `composer test` | `config:clear` → `lint:check` → `types:check` → `php artisan test` |
-| `npm run dev` | `vp dev` — Vite dev server with HMR |
-| `npm run build` | `vp build` — production build |
-
----
-
-## Project Structure
-
-```
-app/
-  Models/
-    User.php
-    Category.php          # belongsTo User (author), hasMany CheckList
-    CheckList.php         # belongsTo Category + User, casts is_finished, position
-  Services/
-    ChecklistService.php  # baseQuery, getCheckLists, stats, reorder, toggle, delete, clearAll
-  Livewire/               # + single-file components under resources/views
-resources/views/
-  welcome.blade.php
-  dashboard.blade.php
-  pages/categories/⚡category-index.blade.php
-  pages/check-list/⚡check-list-index.blade.php
-  components/categories/⚡category-item.blade.php
-  components/check-list/⚡check-list-item.blade.php
-  components/check-list/⚡check-list-stats.blade.php
-  components/check-list/⚡check-list-bulk-action-bar.blade.php
-routes/
-  web.php                 # /, /dashboard, /categories, /categories/{slug}/{user}/checklists
-  settings.php            # profile / security / appearance
-database/migrations/
-  2026_09_05_001730_create_categories_table.php
-  2026_09_05_001809_create_check_lists_table.php
-screenshots/              # 3 README screenshots: welcome, categories, checklist
-```
-
-Key tables:
-
-- **categories** — `id, author_id (fk users), category_name, category_slug, timestamps`
-- **check_lists** — `id, author_id, category_id (fk categories), name, is_finished (bool), position (int), timestamps`
-
----
 
 ## Environment Variables
 
@@ -345,25 +285,6 @@ VITE_APP_NAME="${APP_NAME}"
 
 ---
 
-## Routes & Pages
-
-| Method | URI | Name | Middleware |
-|---|---|---|---|
-| GET | `/` | `home` | — |
-| GET | `/dashboard` | `dashboard` | `auth`, `verified` |
-| GET | `/categories` | `categories` | `auth`, `verified` |
-| GET | `/categories/{category:category_slug}/{user:name}/checklists` | `checklists` | `auth`, `verified` |
-| … | `/settings/*` | `settings.*` | `auth` |
-
----
-
-## Customization
-
-- **App name / colors**: `.env` → `APP_NAME`, `resources/views/welcome.blade.php` + `resources/css/app.css` (Tailwind).
-- **Flux components**: `resources/views/flux/` — override per <https://fluxui.dev>.
-- **Vite**: `vite.config.js` — add entries under `laravel({ input: [...] })`.
-
----
 
 ## Testing & Quality
 
@@ -374,22 +295,6 @@ vendor/bin/pint --parallel --test
 vendor/bin/phpstan analyse       # Larastan
 composer ci:check                # full CI gate (clear + lint:check + types:check + test)
 ```
-
-Tests live in `tests/` (Pest + `pest-plugin-laravel`).
-
----
-
-## Troubleshooting
-
-| Symptom | Fix |
-|---|---|
-| `SQLSTATE[HY000] [1049] Unknown database` | Create the DB first or switch to `DB_CONNECTION=sqlite`. |
-| `Vite manifest not found` | Run `npm install && npm run build` (or `npm run dev` for HMR). |
-| `APP_KEY not set` | `php artisan key:generate` (and ensure `.env` exists). |
-| `Permission denied` on `storage/` | `php artisan storage:link`; ensure `storage/` and `bootstrap/cache/` are writable. |
-| Port 8000 busy | `php artisan serve --port=8001` and set `APP_URL=http://localhost:8001`. |
-| Livewire 500 on checklist actions | Confirm `author_id` matches logged-in user; check `storage/logs/laravel.log`. |
-
 ---
 
 ## License
