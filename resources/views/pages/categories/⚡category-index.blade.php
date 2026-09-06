@@ -18,6 +18,7 @@ new class extends Component
         ]);
 
         $validate['category_slug'] = Str::slug($this->category_name);
+        $validate['category_name'] = Str::squish(Str::title($validate['category_name']));
 
         Auth::user()->categories()->create($validate);
         $this->reset('category_name');
